@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "home.png"
+      "filename" : "Icon-76.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "imageedit_1_4437878612.png"
+      "filename" : "Icon-60@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "imageedit_2_2716025304.png"
+      "filename" : "Icon-60@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

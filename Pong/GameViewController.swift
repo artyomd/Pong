@@ -27,20 +27,20 @@ extension SKNode {
 
 class GameViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func viewWillLayoutSubviews() {
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
-            // Configure the view.
             let skView = self.view as! SKView
+            skView.isMultipleTouchEnabled=true;
             skView.showsFPS = true
             skView.showsNodeCount = true
             skView.ignoresSiblingOrder = true
-
             scene.scaleMode = .aspectFill
             scene.size = skView.bounds.size
             skView.presentScene(scene)
         }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     override var shouldAutorotate : Bool {
@@ -48,16 +48,11 @@ class GameViewController: UIViewController {
     }
 
     override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return UIInterfaceOrientationMask.portrait
-        } else {
-            return UIInterfaceOrientationMask.portrait
-        }
+        return UIInterfaceOrientationMask.portrait
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
     override var prefersStatusBarHidden : Bool {

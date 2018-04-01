@@ -9,74 +9,68 @@
 import SpriteKit
 
 class End: SKScene {
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    var label=SKLabelNode(fontNamed: "Futura Medium")
+    
+    var finalLabel=SKLabelNode(fontNamed: GameScene.FUTURA_MEDIUM_FONT)
+    var tryAgain = SKLabelNode(text: "tap to play again");
+    var home = SKSpriteNode(imageNamed: "home");
+    let homeNodeName = "home";
     var muiltyplayer:Bool = Bool();
-    var vspeed:Int16;
-    var vdif:Int16;
-    var vsound:Bool;
-    init(size: CGSize,ltext:String, muiltyplayer:Bool,difficluty: Int16,speed: Int16,sound: Bool) {
-        label.text=ltext;
-        self.muiltyplayer=muiltyplayer;
-        vspeed=speed;
-        vdif=difficluty;
-        vsound=sound;
+    
+    init(size: CGSize,finalText:String, muiltyplayer:Bool) {
         super.init(size: size);
-      
+        finalLabel.text=finalText;
+        self.muiltyplayer=muiltyplayer;
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func sceneDidLoad() {
+        self.backgroundColor = SKColor.black;
+        finalLabel.fontColor = SKColor.white;
+        finalLabel.fontSize = 44;
+        self.addChild(finalLabel);
+        
+        tryAgain.fontColor = SKColor.white;
+        tryAgain.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        tryAgain.fontSize = 24;
+        self.addChild(tryAgain);
+        
+        home.name=homeNodeName;
+        self.addChild(home);
     }
     
     override func didMove(to view: SKView){
-        self.backgroundColor = SKColor.black;
-        
-        if(vsound)
+        if(UserDefaults.standard.bool(forKey: GameScene.SOUND_VALUE_KEY))
         {
-        let play = SKAction.playSoundFileNamed("gameover.caf", waitForCompletion: false);
-        self.run(play);
+            let play = SKAction.playSoundFileNamed("gameover.caf", waitForCompletion: false);
+            self.run(play);
         }
-        label.fontColor = SKColor.white;
-        label.fontSize = 44;
-        label.position = CGPoint(x: self.frame.midX,y: self.frame.midY);
-        self.addChild(label);
         
-        let tryAgain = SKLabelNode(fontNamed: "Futura Medium");
-        tryAgain.text = "tap to play again";
-        tryAgain.fontColor = SKColor.white;
-        tryAgain.fontSize = 24;
+        finalLabel.position = CGPoint(x: self.frame.midX,y: self.frame.midY);
+        
         tryAgain.position = CGPoint(x: size.width/2, y: -50);
-        
-        let moveLabel = SKAction.moveTo(y: size.height/2 - 40, duration: 2.0);
-        tryAgain.run(moveLabel)
-        
-        self.addChild(tryAgain);
-        
-        let home = SKSpriteNode(imageNamed: "home");
-        home.position=CGPoint(x: size.height * 8/16, y: size.width * 1/16+30);
-        home.physicsBody = SKPhysicsBody(rectangleOf: home.frame.size);
-        home.physicsBody?.isDynamic = false;
-        home.name="home";
-        self.addChild(home);
+        tryAgain.run(SKAction.moveTo(y: size.height/2 - 40, duration: 2.0))
+        home.position=CGPoint(x: self.size.width*15/16, y: self.size.height * 1/16);
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: AnyObject? = touches.first;
         let location = touch?.location(in: self);
         let node = self.atPoint(location!);
-        if(node.name=="home")
-        {
-            let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
+        let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
+        switch (node.name) {
+        case homeNodeName:
+            
             let menu = GameScene(size: self.size);
-            menu.addSettings( vdif, speed: vspeed, sound: vsound, start:true);
+            menu.showSoundDialog(show: false);
             self.view?.presentScene(menu, transition: reveal)
-        }
-        else
-        {
-            let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
-            let game = Pong(size: self.size, muilplayer: self.muiltyplayer, difficluty: vdif, speed: vspeed, sound: vsound);
+            break;
+        default:
+            let game = Pong(size: self.size, muilplayer: self.muiltyplayer);
             self.view?.presentScene(game, transition: reveal)
-        
+            break;
         }
-
     }
 }

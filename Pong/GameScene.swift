@@ -8,196 +8,209 @@
 
 
 import SpriteKit
-import CoreData
 
-
-class GameScene: SKScene, SKPhysicsContactDelegate
+class GameScene: SKScene
 {
+    static let FUTURA_MEDIUM_FONT:String = "Futura Medium";
+    static let BALL_SPEED_VALUE_KEY = "speed value";
+    static let SOUND_VALUE_KEY = "sound value";
+    static let DIFFICULTY_VALUE_KEY = "difficluty value";
+    
+    let onePlayerName:String = "1 player";
+    let twoPlayerName:String = "2 player";
+    let settingsName:String = "settings";
+    let soundOnName:String = "sound on"
+    let soundOffName:String = "sound off"
+    let speedSlowName:String = "speed slow";
+    let speedNormalName:String = "speed normal";
+    let speedFastName:String = "speed fast";
+    let difficultyEasyName:String="difficulty easy";
+    let difficultyNormalName:String="difficulty normal";
+    let difficultyHardName:String="difficulty hard";
+    let backName:String = "back";
+    let trueImageName:String = "true image";
+    let falseImageName:String = "false image";
+    
     var tittle:SKLabelNode=SKLabelNode(text: "Pong");
-    var fplayer:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var splayer:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
+    var onePlayer:SKLabelNode=SKLabelNode(text:"1 Player");
+    var twoPlayer:SKLabelNode=SKLabelNode(text: "2 Player");
+    var settings:SKLabelNode=SKLabelNode(text: "Settings");
+    var difficulty:SKLabelNode=SKLabelNode(text: "Difficulty");
+    var ballSpeed:SKLabelNode=SKLabelNode(text: "Ball Speed");
+    var sound:SKLabelNode=SKLabelNode(text: "Sound");
+    var soundOn:SKLabelNode=SKLabelNode(text: "on");
+    var soundOff:SKLabelNode=SKLabelNode(text:"off");
+    var speedSlow=SKLabelNode(text:"slow");
+    var speedNormal=SKLabelNode(text: "normal");
+    var speedFast=SKLabelNode(text: "fast");
+    var difficultyEasy=SKLabelNode(text: "easy");
+    var difficultyNormal=SKLabelNode(text:"normal");
+    var difficultyHard=SKLabelNode(text: "hard");
+    var soundImage = SKSpriteNode(imageNamed: "sound");
+    var trueImage = SKSpriteNode(imageNamed: "true");
+    var falseImage = SKSpriteNode(imageNamed: "false");
     var back:SKSpriteNode=SKSpriteNode(imageNamed: "back");
-    var settings:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var difficulty:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var bSpeed:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var sound:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var sON:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var sOFF:SKLabelNode=SKLabelNode(fontNamed: "Futura Medium");
-    var sslow=SKLabelNode(fontNamed: "Futura Medium");
-    var snormal=SKLabelNode(fontNamed: "Futura Medium");
-    var sfast=SKLabelNode(fontNamed: "Futura Medium");
-    var deasy=SKLabelNode(fontNamed: "Futura Medium");
-    var dnormal=SKLabelNode(fontNamed: "Futura Medium");
-    var dhard=SKLabelNode(fontNamed: "Futura Medium");
-    var vDifficulty:Int16 = 2;
-    var vSpeed:Int16 = 2;
-    var vSound:Bool = true;
-    var bSound = SKSpriteNode(imageNamed: "sound");
-    var sTrue = SKSpriteNode(imageNamed: "true");
-    var sfalse = SKSpriteNode(imageNamed: "false");
-    var choosed = false;
     
-    func addSettings(_ difficluty: Int16,speed: Int16,sound: Bool, start: Bool)
-    {
-        choosed=start;
-        vSpeed=speed;
-        vDifficulty=difficluty;
-        vSound=sound;
-    }
+    var difficultyValue:Int16 = 0;
+    var ballSpeedValue:Int16 = 0;
+    var soundEnabled:Bool = false;
+    var showSoundDialog = true;
     
-    
-    
-    override func didMove(to view: SKView){
+    override func sceneDidLoad() {
+        super.sceneDidLoad();
+        
         backgroundColor = SKColor.black;
-       
+        
         tittle.fontColor = SKColor.white;
         tittle.fontSize = 44;
-        tittle.fontName="Futura-Medium"
-        tittle.position = CGPoint(x: self.frame.midX,y: self.size.height*(1.5));
+        tittle.fontName=GameScene.FUTURA_MEDIUM_FONT;
         self.addChild(tittle)
         
-        fplayer.text = "1 Player";
-        fplayer.name = "1 Player";
-        fplayer.fontColor = SKColor.white;
-        fplayer.fontSize = 40;
-        fplayer.position = CGPoint(x: size.height * 15/16,y: size.height * 2/4 + 40);
-        self.addChild(fplayer);
+        onePlayer.fontColor = SKColor.white;
+        onePlayer.name = onePlayerName;
+        onePlayer.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        onePlayer.fontSize = 40;
+        self.addChild(onePlayer);
         
+        twoPlayer.name = twoPlayerName;
+        twoPlayer.fontColor = SKColor.white;
+        twoPlayer.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        twoPlayer.fontSize = 40;
+        self.addChild(twoPlayer);
         
-        splayer.text = "2 Player";
-        splayer.name = "2 Player";
-        splayer.fontColor = SKColor.white;
-        splayer.fontSize = 40;
-        splayer.position = CGPoint(x: -size.height * 1/2,y: size.height * 2/4 - 40);
-        self.addChild(splayer);
-        
-        
-        back.position = CGPoint(x: size.height * 15/16, y: (size.width * 1/16 + 30));
-        back.physicsBody = SKPhysicsBody(rectangleOf: back.frame.size);
-        back.physicsBody?.isDynamic = false;
-        back.name = "back";
-        back.zRotation = atan2(0,-200);
-        self.addChild(back);
-        
-        settings.text="Settings"
-        settings.name="Settings"
+        settings.name = settingsName;
+        settings.fontName = GameScene.FUTURA_MEDIUM_FONT;
         settings.fontColor=SKColor.white;
         settings.fontSize = 40;
-        settings.position = CGPoint(x: size.width/2, y: -50);
         addChild(settings);
         
-        
-        difficulty.text="Difficulty";
         difficulty.fontSize=30;
         difficulty.color=SKColor.white;
-        difficulty.position=CGPoint(x: -self.size.width/2, y: self.size.height*12/16);
+        difficulty.fontName = GameScene.FUTURA_MEDIUM_FONT;
         addChild(difficulty);
         
-        bSpeed.text="Ball Speed";
-        bSpeed.fontSize=30;
-        bSpeed.color=SKColor.white;
-        bSpeed.position=CGPoint(x: -self.size.width/2, y: self.size.height*8/16);
-        addChild(bSpeed);
+        ballSpeed.fontSize=30;
+        ballSpeed.color=SKColor.white;
+        ballSpeed.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        addChild(ballSpeed);
         
-        sound.text="Sound";
         sound.fontSize=30;
         sound.color=SKColor.white;
-        sound.position=CGPoint(x: -self.size.width/2, y: self.size.height*5/16);
+        sound.fontName = GameScene.FUTURA_MEDIUM_FONT;
         addChild(sound);
         
-        sON.text="ON";
-        sON.fontSize=30;
-        sON.name="sON";
-        sON.color=SKColor.white;
-        sON.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
-        addChild(sON);
+        soundOn.fontSize=30;
+        soundOn.name = soundOnName;
+        soundOn.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        soundOn.color=SKColor.white;
+        addChild(soundOn);
         
-        sOFF.text="OFF";
-        sOFF.fontSize=30;
-        sOFF.name="sOFF";
-        sOFF.color=SKColor.white;
-        sOFF.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
-        addChild(sOFF);
+        soundOff.fontSize=30;
+        soundOff.name=soundOffName;
+        soundOff.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        soundOff.color=SKColor.white;
+        addChild(soundOff);
         
-        sslow.text="slow";
-        sslow.fontSize=30;
-        sslow.name="sslow";
-        sslow.color=SKColor.white;
-        sslow.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
-        addChild(sslow);
-        
-        snormal.text="normal";
-        snormal.fontSize=30;
-        snormal.name="snormal"
-        snormal.color=SKColor.white;
-        snormal.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
-        addChild(snormal);
-        
-        sfast.text="fast";
-        sfast.fontSize=30;
-        sfast.name="sfast";
-        sfast.color=SKColor.white;
-        sfast.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
-        addChild(sfast);
-        
-        deasy.text="easy";
-        deasy.fontSize=30;
-        deasy.name="deasy";
-        deasy.color=SKColor.white;
-        deasy.position=CGPoint(x: self.size.width*0.7, y: self.size.height*1.5);
-        addChild(deasy);
-        
-        dnormal.text="normal";
-        dnormal.fontSize=30;
-        dnormal.name="dnormal";
-        dnormal.color=SKColor.white;
-        dnormal.position=CGPoint(x: self.size.width*0.7, y: self.size.height*1.5);
-        addChild(dnormal);
-        
-        dhard.text="hard";
-        dhard.fontSize=30;
-        dhard.name="dhard";
-        dhard.color=SKColor.white;
-        dhard.position=CGPoint(x: self.size.width*0.7, y: self.size.height*1.5);
-        addChild(dhard);
-        
-        bSound.position = CGPoint(x: self.size.width/2, y: self.size.height*1.5);
-        bSound.name = "bSound";
-        self.addChild(bSound);
-        
-        sTrue.position = CGPoint(x: self.size.width*(-0.5), y: self.size.height*(0.05));
-        sTrue.name = "sTrue";
-        self.addChild(sTrue);
+        speedSlow.fontSize=30;
+        speedSlow.name=speedSlowName;
+        speedSlow.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        speedSlow.color=SKColor.white;
+        addChild(speedSlow);
 
-        sfalse.position = CGPoint(x: self.size.width*(1.5), y: self.size.height*(0.05));
-        sfalse.name = "sfalse";
-        self.addChild(sfalse);
+        speedNormal.fontSize=30;
+        speedNormal.name=speedNormalName;
+        speedNormal.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        speedNormal.color=SKColor.white;
+        addChild(speedNormal);
         
+        speedFast.fontSize=30;
+        speedFast.name=speedFastName;
+        speedFast.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        speedFast.color=SKColor.white;
+        addChild(speedFast);
         
-        if(choosed)
+        difficultyEasy.fontSize=30;
+        difficultyEasy.name=difficultyEasyName;
+        difficultyEasy.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        difficultyEasy.color=SKColor.white;
+        addChild(difficultyEasy);
+        
+        difficultyNormal.fontSize=30;
+        difficultyNormal.name=difficultyNormalName;
+        difficultyNormal.color=SKColor.white;
+        difficultyNormal.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        addChild(difficultyNormal);
+        
+        difficultyHard.fontSize=30;
+        difficultyHard.name=difficultyHardName;
+        difficultyHard.fontName = GameScene.FUTURA_MEDIUM_FONT;
+        difficultyHard.color=SKColor.white;
+        addChild(difficultyHard);
+        
+        self.addChild(soundImage);
+        
+        trueImage.name = trueImageName;
+        self.addChild(trueImage);
+        
+        falseImage.name =  falseImageName;
+        self.addChild(falseImage);
+        
+        back.name = backName;
+        self.addChild(back);
+        
+        setDifficulty(value: Int16(UserDefaults.standard.integer(forKey: GameScene.DIFFICULTY_VALUE_KEY)));
+        setBallSpeed(value: Int16(UserDefaults.standard.integer(forKey: GameScene.BALL_SPEED_VALUE_KEY)));
+        setSoundEnabled(enabled: UserDefaults.standard.bool(forKey: GameScene.SOUND_VALUE_KEY));
+    }
+    
+    func showSoundDialog(show:Bool){
+        showSoundDialog = show;
+    }
+    
+    override func didMove(to view: SKView){
+        tittle.position = CGPoint(x: self.frame.midX,y: self.size.height*(1.5));
+        onePlayer.position = CGPoint(x: size.height * 15/16,y: size.height * 2/4 + 40);
+        twoPlayer.position = CGPoint(x: -size.height * 1/2,y: size.height * 2/4 - 40);
+        settings.position = CGPoint(x: size.width/2, y: -50);
+        difficulty.position=CGPoint(x: -self.size.width/2, y: self.size.height*12/16);
+        ballSpeed.position=CGPoint(x: -self.size.width/2, y: self.size.height*8/16);
+        sound.position=CGPoint(x: -self.size.width/2, y: self.size.height*5/16);
+        soundOn.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
+        soundOff.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
+        speedSlow.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
+        speedNormal.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
+        speedFast.position=CGPoint(x: self.size.width*0.7, y: -self.size.height*0.5);
+        difficultyEasy.position=CGPoint(x: self.size.width*0.7, y: self.size.height*1.5);
+        difficultyNormal.position=CGPoint(x: self.size.width*0.7, y: self.size.height*1.5);
+        difficultyHard.position=CGPoint(x: self.size.width*0.7, y: self.size.height*1.5);
+        soundImage.position = CGPoint(x: self.size.width/2, y: self.size.height*1.5);
+        trueImage.position = CGPoint(x: self.size.width*(-0.5), y: self.size.height*(0.05));
+        falseImage.position = CGPoint(x: self.size.width*(1.5), y: self.size.height*(0.05));
+        back.position = CGPoint(x: size.height * 15/16, y: (size.width * 1/16 + 30));
+        if(showSoundDialog)
         {
-            tittle.run(SKAction.moveTo(y: (self.size.height * 7/8), duration:2.0));
-            fplayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
-            splayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
-            back.run(SKAction.moveTo(x: self.size.height * 15/16, duration: 2.0));
-            settings.run(SKAction.moveTo(y: size.height*0.3, duration: 2.0));
-            difficulty.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
-            bSpeed.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
-            sound.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
-            sON.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            sOFF.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            sslow.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            sfast.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            snormal.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            deasy.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
-            dhard.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
-            dnormal.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
+            soundImage.run(SKAction.moveTo(y: size.height/2, duration: 2.0));
+            trueImage.run(SKAction.moveTo(x: size.width*(0.1), duration: 2.0));
+            falseImage.run(SKAction.moveTo(x: size.width*(0.9), duration: 2.0));
         }
         else
         {
-            sTrue.run(SKAction.moveTo(x: size.width*(0.1), duration: 2.0));
-            bSound.run(SKAction.moveTo(y: size.height/2, duration: 2.0));
-            sfalse.run(SKAction.moveTo(x: size.width*(0.9), duration: 2.0));
+            tittle.run(SKAction.moveTo(y: (self.size.height * 7/8), duration:2.0));
+            onePlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            twoPlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            back.run(SKAction.moveTo(x: self.size.height * 15/16, duration: 2.0));
+            settings.run(SKAction.moveTo(y: size.height*0.3, duration: 2.0));
+            difficulty.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
+            ballSpeed.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
+            sound.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
+            soundOn.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            soundOff.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            speedSlow.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            speedFast.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            speedNormal.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            difficultyEasy.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
+            difficultyHard.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
+            difficultyNormal.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
         }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -205,174 +218,154 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let location = touch?.location(in: self);
         let node = self.atPoint(location!);
         
-        if(node.name=="back")
-        {
+        switch (node.name) {
+        case backName:
             tittle.run(SKAction.moveTo(y: (self.size.height * 7/8), duration:2.0));
-            fplayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
-            splayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            onePlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            twoPlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
             back.run(SKAction.moveTo(x: self.size.height * 15/16, duration: 2.0));
             settings.run(SKAction.moveTo(y: size.height*0.3, duration: 2.0));
             difficulty.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
-            bSpeed.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
+            ballSpeed.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
             sound.run(SKAction.moveTo(x: -self.size.width/2, duration: 2.0));
-            sON.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            sOFF.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            sslow.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            sfast.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            snormal.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
-            deasy.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
-            dhard.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
-            dnormal.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
-        }
-        else if(node.name=="sTrue")
-        {
-            vSound=true
+            soundOn.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            soundOff.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            speedSlow.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            speedFast.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            speedNormal.run(SKAction.moveTo(y: -self.size.height*1/2, duration: 2.0));
+            difficultyEasy.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
+            difficultyHard.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
+            difficultyNormal.run(SKAction.moveTo(y: self.size.height*1.5, duration: 2.0));
+            break;
+        case trueImageName:
+            setSoundEnabled(enabled: true)
             tittle.run(SKAction.moveTo(y: size.height*0.9, duration: 2.0))
-            fplayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
-            splayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            onePlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            twoPlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
             settings.run(SKAction.moveTo(y: size.height*0.3, duration: 2.0));
-            bSound.run(SKAction.moveTo(y: size.height*1.5, duration: 2.0));
-            sTrue.run(SKAction.moveTo(x: self.size.width*(-0.5), duration: 2.0));
-            sfalse.run(SKAction.moveTo(x: self.size.width*(1.5), duration: 2.0));
-
-        }
-        else if(node.name=="sfalse")
-        {
-            vSound=false
+            soundImage.run(SKAction.moveTo(y: size.height*1.5, duration: 2.0));
+            trueImage.run(SKAction.moveTo(x: self.size.width*(-0.5), duration: 2.0));
+            falseImage.run(SKAction.moveTo(x: self.size.width*(1.5), duration: 2.0));
+            break;
+        case falseImageName:
+            setSoundEnabled(enabled: false)
             tittle.run(SKAction.moveTo(y: size.height*0.9, duration: 2.0))
-            fplayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
-            splayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            onePlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
+            twoPlayer.run(SKAction.moveTo(x: size.width/2, duration: 2.0));
             settings.run(SKAction.moveTo(y: size.height*0.3, duration: 2.0));
-            bSound.run(SKAction.moveTo(y: size.height*1.5, duration: 2.0));
-            sTrue.run(SKAction.moveTo(x: self.size.width*(-0.5), duration: 2.0));
-            sfalse.run(SKAction.moveTo(x: self.size.width*(1.5), duration: 2.0));
-            
-        }
-        else if(node.name=="1 Player")
-        {
+            soundImage.run(SKAction.moveTo(y: size.height*1.5, duration: 2.0));
+            trueImage.run(SKAction.moveTo(x: self.size.width*(-0.5), duration: 2.0));
+            falseImage.run(SKAction.moveTo(x: self.size.width*(1.5), duration: 2.0));
+            break;
+        case onePlayerName:
             let reveal = SKTransition.doorsOpenHorizontal(withDuration: 1)
-            let game = Pong(size: self.size, muilplayer: false, difficluty: vDifficulty, speed: vSpeed, sound: vSound);
+            let game = Pong(size: self.size, muilplayer: false);
             self.view?.presentScene(game, transition: reveal)
-            
-        }
-        else if(node.name=="2 Player")
-        {
+            break;
+        case twoPlayerName:
             let reveal = SKTransition.doorsOpenHorizontal(withDuration: 1);
-            let game = Pong(size: self.size, muilplayer: true, difficluty: vDifficulty, speed: vSpeed, sound: vSound);
-            self.view?.presentScene(game, transition: reveal)
-        }
-        else if(node.name=="Settings")
-        {
+            let game = Pong(size: self.size, muilplayer: true);
+            self.view?.presentScene(game, transition: reveal);
+            break;
+        case settingsName:
             tittle.run(SKAction.moveTo(y: (self.size.height * 1.5), duration:2.0));
-            fplayer.run(SKAction.moveTo(x: self.size.height * 15/16, duration: 2.0));
-            splayer.run(SKAction.moveTo(x: -self.size.height * 15/16, duration: 2.0));
+            onePlayer.run(SKAction.moveTo(x: self.size.height * 15/16, duration: 2.0));
+            twoPlayer.run(SKAction.moveTo(x: -self.size.height * 15/16, duration: 2.0));
             settings.run(SKAction.moveTo(y: self.size.height * 7.2/8, duration: 2.0));
             back.run(SKAction.moveTo(x: size.height * 1/16, duration: 2.0));
             difficulty.run(SKAction.moveTo(x: self.size.width*0.25, duration: 2.0));
-            bSpeed.run(SKAction.moveTo(x: self.size.width*0.25, duration: 2.0));
+            ballSpeed.run(SKAction.moveTo(x: self.size.width*0.25, duration: 2.0));
             sound.run(SKAction.moveTo(x: self.size.width*0.25, duration: 2.0));
-            sON.run(SKAction.moveTo(y: self.size.height*5.5/16, duration: 2.0));
-            sOFF.run(SKAction.moveTo(y: self.size.height*4.5/16, duration: 2.0));
-            sslow.run(SKAction.moveTo(y: self.size.height*9/16, duration: 2.0));
-            sfast.run(SKAction.moveTo(y: self.size.height*7/16, duration: 2.0));
-            snormal.run(SKAction.moveTo(y: self.size.height*8/16, duration: 2.0));
-            deasy.run(SKAction.moveTo(y: self.size.height*13/16, duration: 2.0));
-            dhard.run(SKAction.moveTo(y: self.size.height*11/16, duration: 2.0));
-            dnormal.run(SKAction.moveTo(y: self.size.height*12/16, duration: 2.0));
+            soundOn.run(SKAction.moveTo(y: self.size.height*5.5/16, duration: 2.0));
+            soundOff.run(SKAction.moveTo(y: self.size.height*4.5/16, duration: 2.0));
+            speedSlow.run(SKAction.moveTo(y: self.size.height*9/16, duration: 2.0));
+            speedFast.run(SKAction.moveTo(y: self.size.height*7/16, duration: 2.0));
+            speedNormal.run(SKAction.moveTo(y: self.size.height*8/16, duration: 2.0));
+            difficultyEasy.run(SKAction.moveTo(y: self.size.height*13/16, duration: 2.0));
+            difficultyHard.run(SKAction.moveTo(y: self.size.height*11/16, duration: 2.0));
+            difficultyNormal.run(SKAction.moveTo(y: self.size.height*12/16, duration: 2.0));
+            break;
+        case soundOnName:
+             setSoundEnabled(enabled: true)
+             break;
+        case soundOffName:
+            setSoundEnabled(enabled: false)
+            break;
+        case speedSlowName:
+            setBallSpeed(value: -1)
+            break;
+        case speedNormalName:
+            setBallSpeed(value: 0)
+            break;
+        case speedFastName:
+        setBallSpeed(value: 1)
+            break;
+        case difficultyEasyName:
+             setDifficulty(value: -1)
+             break;
+        case difficultyNormalName:
+            setDifficulty(value: 0)
+            break;
+        case difficultyHardName:
+            setDifficulty(value: 1)
+            break;
+        default:
+            break;
         }
-        else if(node.name=="sON")
-        {
-            self.vSound=true;
-        }
-        else if(node.name=="sOFF")
-        {
-            self.vSound=false;
-        }
-        else if(node.name=="sslow")
-        {
-            self.vSpeed=1;
-        }
-        else if(node.name=="snormal")
-        {
-            self.vSpeed=2;
-        }
-        else if(node.name=="sfast")
-        {
-            self.vSpeed=3;
-        }
-        else if(node.name=="deasy")
-        {
-            self.vDifficulty=1;
-        }
-        else if(node.name=="dnormal")
-        {
-            self.vDifficulty=2;
-        }
-        else if(node.name=="dhard")
-        {
-            self.vDifficulty=3;
-        }
-        
-        
-    }
-    override func update(_ currentTime: TimeInterval) {
-        
-        if(vSound)
-        {
-            sOFF.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            sON.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-        }
-        else
-        {
-            sON.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            sOFF.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-        }
-        
-        if(vSpeed==1)
-        {
-            sslow.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-            snormal.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            sfast.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-        }
-        else if(vSpeed==2)
-        {
-            sslow.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            snormal.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-            sfast.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-        }
-        else if(vSpeed==3)
-        {
-            sslow.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            snormal.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            sfast.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-            
-        }
-        
-        if(vDifficulty==1)
-        {
-            deasy.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-            dnormal.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            dhard.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            
-        }
-        else if(vDifficulty==2)
-        {
-            deasy.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            dnormal.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-            dhard.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            
-        }
-        else if(vDifficulty==3)
-        {
-            deasy.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            dnormal.fontColor=SKColor(red: 255, green: 255, blue: 255, alpha: 1);
-            dhard.fontColor=SKColor(red: 255, green: 0, blue: 0, alpha: 1);
-            
-            
-        }
-        
     }
     
+    func setSoundEnabled(enabled:Bool!){
+        soundEnabled = enabled;
+        UserDefaults.standard.set(soundEnabled, forKey: GameScene.SOUND_VALUE_KEY);
+        soundOn.fontColor = enabled ? SKColor.red : SKColor.white;
+        soundOff.fontColor = enabled ? SKColor.white : SKColor.red;
+    }
     
+    func setDifficulty(value:Int16){
+        difficultyValue = value;
+        UserDefaults.standard.set(difficultyValue, forKey: GameScene.DIFFICULTY_VALUE_KEY);
+        switch difficultyValue {
+        case -1:
+            difficultyEasy.fontColor=SKColor.red;
+            difficultyNormal.fontColor=SKColor.white;
+            difficultyHard.fontColor=SKColor.white;
+            break;
+        case 0:
+            difficultyEasy.fontColor=SKColor.white;
+            difficultyNormal.fontColor=SKColor.red;
+            difficultyHard.fontColor=SKColor.white;
+            break;
+        case 1:
+            difficultyEasy.fontColor=SKColor.white;
+            difficultyNormal.fontColor=SKColor.white;
+            difficultyHard.fontColor=SKColor.red;
+            break;
+        default:
+            break;
+        }
+    }
     
+    func setBallSpeed(value:Int16){
+        ballSpeedValue = value;
+        UserDefaults.standard.set(ballSpeedValue, forKey: GameScene.BALL_SPEED_VALUE_KEY);
+        switch ballSpeedValue {
+        case -1:
+            speedSlow.fontColor=SKColor.red;
+            speedNormal.fontColor=SKColor.white;
+            speedFast.fontColor=SKColor.white;
+            break;
+        case 0:
+            speedSlow.fontColor=SKColor.white;
+            speedNormal.fontColor=SKColor.red;
+            speedFast.fontColor=SKColor.white;
+            break;
+        case 1:
+            speedSlow.fontColor=SKColor.white;
+            speedNormal.fontColor=SKColor.white;
+            speedFast.fontColor=SKColor.red;
+            break;
+        default:
+            break;
+        }
+    }
 }

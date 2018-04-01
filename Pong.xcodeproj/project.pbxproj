@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A2D25AA2070C17F001FFDBC /* blip.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D25A72070C09A001FFDBC /* blip.caf */; };
+		5A2D25AB2070C181001FFDBC /* gameover.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D25A62070C09A001FFDBC /* gameover.caf */; };
+		5A2D25AC2070C184001FFDBC /* lose.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D25A82070C09A001FFDBC /* lose.caf */; };
+		5A2D25AD2070C187001FFDBC /* win.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A2D25A92070C09A001FFDBC /* win.caf */; };
 		5A94BB271C7D945E00AF6485 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94BB211C7D945E00AF6485 /* AppDelegate.swift */; };
 		5A94BB281C7D945E00AF6485 /* End.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94BB221C7D945E00AF6485 /* End.swift */; };
 		5A94BB291C7D945E00AF6485 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB231C7D945E00AF6485 /* GameScene.sks */; };
@@ -16,13 +20,13 @@
 		5A94BB2F1C7D94B100AF6485 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB2D1C7D94B100AF6485 /* LaunchScreen.xib */; };
 		5A94BB301C7D94B100AF6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB2E1C7D94B100AF6485 /* Main.storyboard */; };
 		5A94BB321C7D94CD00AF6485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB311C7D94CD00AF6485 /* Images.xcassets */; };
-		5A94BB381C7D953B00AF6485 /* app_game_interactive_alert_tone_026.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB341C7D953B00AF6485 /* app_game_interactive_alert_tone_026.mp3 */; };
-		5A94BB391C7D953B00AF6485 /* blip.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB351C7D953B00AF6485 /* blip.caf */; };
-		5A94BB3A1C7D953B00AF6485 /* gameover.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB361C7D953B00AF6485 /* gameover.caf */; };
-		5A94BB3B1C7D953B00AF6485 /* synth_stab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5A94BB371C7D953B00AF6485 /* synth_stab.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A2D25A62070C09A001FFDBC /* gameover.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameover.caf; sourceTree = "<group>"; };
+		5A2D25A72070C09A001FFDBC /* blip.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = blip.caf; sourceTree = "<group>"; };
+		5A2D25A82070C09A001FFDBC /* lose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = lose.caf; sourceTree = "<group>"; };
+		5A2D25A92070C09A001FFDBC /* win.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = win.caf; sourceTree = "<group>"; };
 		5A94BB0B1C7D943A00AF6485 /* Pong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A94BB1A1C7D943A00AF6485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A94BB201C7D945D00AF6485 /* Pong-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pong-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -35,10 +39,6 @@
 		5A94BB2D1C7D94B100AF6485 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5A94BB2E1C7D94B100AF6485 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5A94BB311C7D94CD00AF6485 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5A94BB341C7D953B00AF6485 /* app_game_interactive_alert_tone_026.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = app_game_interactive_alert_tone_026.mp3; sourceTree = "<group>"; };
-		5A94BB351C7D953B00AF6485 /* blip.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = blip.caf; sourceTree = "<group>"; };
-		5A94BB361C7D953B00AF6485 /* gameover.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameover.caf; sourceTree = "<group>"; };
-		5A94BB371C7D953B00AF6485 /* synth_stab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = synth_stab.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +90,10 @@
 		5A94BB331C7D953B00AF6485 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				5A94BB341C7D953B00AF6485 /* app_game_interactive_alert_tone_026.mp3 */,
-				5A94BB351C7D953B00AF6485 /* blip.caf */,
-				5A94BB361C7D953B00AF6485 /* gameover.caf */,
-				5A94BB371C7D953B00AF6485 /* synth_stab.mp3 */,
+				5A2D25A72070C09A001FFDBC /* blip.caf */,
+				5A2D25A62070C09A001FFDBC /* gameover.caf */,
+				5A2D25A82070C09A001FFDBC /* lose.caf */,
+				5A2D25A92070C09A001FFDBC /* win.caf */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -125,13 +125,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = artyomd;
 				TargetAttributes = {
 					5A94BB0A1C7D943A00AF6485 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = M43P2TJ7B8;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -158,14 +159,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A2D25AB2070C181001FFDBC /* gameover.caf in Resources */,
 				5A94BB291C7D945E00AF6485 /* GameScene.sks in Resources */,
 				5A94BB321C7D94CD00AF6485 /* Images.xcassets in Resources */,
 				5A94BB2F1C7D94B100AF6485 /* LaunchScreen.xib in Resources */,
-				5A94BB3B1C7D953B00AF6485 /* synth_stab.mp3 in Resources */,
-				5A94BB391C7D953B00AF6485 /* blip.caf in Resources */,
-				5A94BB381C7D953B00AF6485 /* app_game_interactive_alert_tone_026.mp3 in Resources */,
-				5A94BB3A1C7D953B00AF6485 /* gameover.caf in Resources */,
+				5A2D25AA2070C17F001FFDBC /* blip.caf in Resources */,
+				5A2D25AD2070C187001FFDBC /* win.caf in Resources */,
 				5A94BB301C7D94B100AF6485 /* Main.storyboard in Resources */,
+				5A2D25AC2070C184001FFDBC /* lose.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,18 +196,27 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -225,7 +235,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -242,17 +252,26 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -266,8 +285,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -278,31 +298,41 @@
 		5A94BB1E1C7D943A00AF6485 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M43P2TJ7B8;
 				INFOPLIST_FILE = Pong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.artyomd.ios.Pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pong/Pong-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		5A94BB1F1C7D943A00AF6485 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = M43P2TJ7B8;
 				INFOPLIST_FILE = Pong/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.artyomd.ios.Pong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pong/Pong-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
