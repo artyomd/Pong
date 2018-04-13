@@ -10,37 +10,33 @@ import UIKit
 import SpriteKit
 
 extension SKNode {
-    class func unarchiveFromFile(_ file : NSString) -> SKNode? {
-        if let path = Bundle.main.path(forResource: file as String, ofType: "sks") {
-            let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-            let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
-            
-            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! GameScene
-            archiver.finishDecoding()
-            return scene
-        } else {
-            return nil
-        }
+    class func unarchiveFromFile(_ file : NSString) -> GameScene! {
+        let path = Bundle.main.path(forResource: file as String, ofType: "sks")!
+        let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
+        
+        archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+        let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! GameScene
+        
+        scene.scaleMode = .aspectFill
+        scene.size = UIScreen.main.bounds.size
+        
+        archiver.finishDecoding()
+        return scene
     }
 }
 
 class GameViewController: UIViewController {
-
-    override func viewWillLayoutSubviews() {
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
-            let skView = self.view as! SKView
-            skView.isMultipleTouchEnabled=true;
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            skView.ignoresSiblingOrder = true
-            scene.scaleMode = .aspectFill
-            scene.size = skView.bounds.size
-            skView.presentScene(scene)
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let scene = GameScene.unarchiveFromFile("GameScene")
+        let skView = self.view as! SKView
+        skView.isMultipleTouchEnabled=true;
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.ignoresSiblingOrder = true
+        skView.presentScene(scene)
     }
 
     override var shouldAutorotate : Bool {

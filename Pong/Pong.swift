@@ -134,6 +134,7 @@ class Pong: SKScene, SKPhysicsContactDelegate {
         self.addChild(pauseNode);
         
     }
+    
     func initPauseMenu()
     {
         continueNode.position = CGPoint(x: -size.width/2,y: size.height/2);
@@ -304,8 +305,8 @@ class Pong: SKScene, SKPhysicsContactDelegate {
         if(ballNode.position.x<0||ballNode.position.y>self.size.height||ballNode.position.y<0||ballNode.position.x>self.size.width){
             moveBallToCenter(directionChoose: true);
         }
-        
     }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if(isPaused){
             return;
